@@ -1,14 +1,16 @@
-package com.example.galgeleg;
+package com.example.galgeleg.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class MainActivity extends AppCompatActivity {
+import com.example.galgeleg.R;
+
+public class activity_highscore extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_highscore);
     }
 }

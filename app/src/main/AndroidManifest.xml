@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.galgeleg">
+
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <uses-feature android:name="android.hardware.type.watch" />
 
     <application
         android:allowBackup="true"
@@ -9,7 +14,33 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <!-- <uses-library -->
+        <!-- android:name="com.google.android.wearable" -->
+        <!-- android:required="false" /> -->
+        <!--
+               Set to true if your app is Standalone, that is, it does not require the handheld
+               app to run.
+        -->
+        <meta-data
+            android:name="com.google.android.wearable.standalone"
+            android:value="true" />
+
+        <activity
+            android:name=".activities.activity_highscore"
+            android:parentActivityName=".activities.activity_Main" />
+        <activity
+            android:name=".activities.activity_lost"
+            android:parentActivityName=".activities.activity_Main" />
+        <activity
+            android:name=".activities.activity_won"
+            android:parentActivityName=".activities.activity_Main" />
+        <activity
+            android:name=".activities.activity_gamemode"
+            android:parentActivityName=".activities.activity_Main" />
+        <activity
+            android:name=".activities.activity_gamescreen"
+            android:parentActivityName=".activities.activity_gamemode" />
+        <activity android:name=".activities.activity_Main">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
