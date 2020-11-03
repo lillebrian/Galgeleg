@@ -10,6 +10,7 @@ import com.example.galgeleg.R;
 
 public class activity_won extends AppCompatActivity implements View.OnClickListener {
     Intent i;
+    Bundle intentBundle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,13 +31,16 @@ public class activity_won extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
+        String S = intentBundle.getString("gamemode");
         switch (v.getId()) {
             case R.id.won_spiligen:
                 i = new Intent(this, activity_gamescreen.class);
+                i.putExtra("gamemode", S);
                 startActivity(i);
                 break;
             case R.id.won_hovedmenu:
                 i = new Intent(this, activity_Main.class);
+                i.putExtra("gamemode", S);
                 startActivity(i);
                 break;
         }

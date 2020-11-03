@@ -109,17 +109,20 @@ public class activity_gamescreen extends AppCompatActivity implements View.OnCli
     }
 
     public void gameDecided() {
+        recieveI = new Bundle();
+
+        /* LAV TIL OBSERVET OG IKKE TJEK HVER GANG*/
         if (logic.isVundet()) {
             i = new Intent(this, activity_won.class);
-            i.putExtra("rigtigtord", logic.getGuessword());
-            i.putExtra("gamemode", gamemode);
+            recieveI.putString("gamemode", gamemode);
+            recieveI.putString("rigtigtord",logic.getGuessword());
+            i.putExtras(recieveI);
             startActivity(i);
-        }
-        if (logic.isTabt()){
-
+        } else if (logic.isTabt()){
             i = new Intent(this, activity_lost.class);
-            i.putExtra("rigtigtord", logic.getGuessword());
-            i.putExtra("gamemode", gamemode);
+            recieveI.putString("gamemode", gamemode);
+            recieveI.putString("rigtigtord",logic.getGuessword());
+            i.putExtras(recieveI);
             startActivity(i);
         }
     }

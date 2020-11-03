@@ -30,15 +30,16 @@ public class activity_lost extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
+        String S = intentBundle.getString("gamemode");
         switch (v.getId()) {
             case R.id.lost_spiligen:
                 i = new Intent(this, activity_gamescreen.class);
-                i.putExtra("gamemode", intentBundle.getString("gamemode"));
+                i.putExtra("gamemode", S);
                 startActivity(i);
                 break;
             case R.id.lost_hovedmenu:
                 i = new Intent(this, activity_Main.class);
-                i.putExtra("gamemode", intentBundle.getString("gamemode"));
+                i.putExtra("gamemode", S);
                 startActivity(i);
                 break;
         }
