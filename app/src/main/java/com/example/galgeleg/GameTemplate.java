@@ -61,8 +61,6 @@ public abstract class GameTemplate extends Observable implements BasicGame{
         try {
 //            hentOrdFraDr();
             muligeOrd.add("hej");
-            muligeOrd.add("test");
-            muligeOrd.add("pølsemix");
         } catch (Exception e) {
             System.out.println("Exception");
         }
@@ -75,6 +73,9 @@ public abstract class GameTemplate extends Observable implements BasicGame{
         if (brugteBogstaver.contains(bogstav)) {
             System.out.println("Du har allerede gættet på: " + bogstav);
             return;
+        }
+        if(bogstav.equals("q")) {
+            vundet = true;
         }
         if(tabt || vundet)
             return;

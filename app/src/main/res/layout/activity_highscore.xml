@@ -8,16 +8,17 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/hs_recyclerView"
-        android:layout_width="319dp"
-        android:layout_height="577dp"
+        android:layout_width="350dp"
+        android:layout_height="600dp"
+        android:layout_marginTop="50dp"
         android:clipToPadding="false"
         android:orientation="vertical"
         android:paddingStart="0dp"
         android:paddingTop="10dp"
         android:paddingEnd="0dp"
         android:paddingBottom="10dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
 
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -27,17 +28,21 @@
         android:id="@+id/hs_user"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginBottom="20dp"
         android:text="Bruger"
+        android:textSize="40sp"
         app:layout_constraintBottom_toTopOf="@+id/hs_recyclerView"
-        app:layout_constraintStart_toStartOf="@+id/hs_recyclerView" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/hs_guess"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:text="Antal Gæt"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="20dp"
+        android:text="Gæt"
+        android:textSize="40sp"
         app:layout_constraintBottom_toTopOf="@+id/hs_recyclerView"
         app:layout_constraintEnd_toEndOf="@+id/hs_recyclerView" />
 

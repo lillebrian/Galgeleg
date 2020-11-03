@@ -4,8 +4,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class Highscore {
 
-    private final String name;
-    private final int guesses;
+    private String name;
+    private int guesses;
 
     public Highscore (String name, int guesses) {
         this.name = name;

@@ -5,6 +5,7 @@ import com.example.galgeleg.GameFactory;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -18,7 +19,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 public class activity_gamescreen extends AppCompatActivity implements View.OnClickListener, Observer {
-//    gm_Normal logic = new gm_Normal();
+    private static boolean FIRST_RUN = true;
     EditText inBogstav;
     TextView forkerte;
     TextView synligtOrd;
@@ -29,6 +30,13 @@ public class activity_gamescreen extends AppCompatActivity implements View.OnCli
     String gamemode;
     GameTemplate logic;
     Long timeLeft;
+
+    /* For preference manager */
+    public static final String SHARED_PREFS = "sharedPrefs";
+    public static final String USERNAME = "userName";
+    public static final String GUESSES = "forsøg";
+    String userName;
+    int forsøg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,8 +54,10 @@ public class activity_gamescreen extends AppCompatActivity implements View.OnCli
 
         /* Modtage intent fra forrige skærm omkring hvilken type af gamemode knap der blev trykket på*/
         recieveI = getIntent().getExtras();
-        if (recieveI != null)
+        if (recieveI != null) {
             gamemode = recieveI.getString("gamemode");
+            userName = recieveI.getString("userName");
+        }
         /* Bruger GameFactory til initialisering af nyt object af typen bestemt af forrige tryk */
         logic = (GameTemplate) new GameFactory().factory(gamemode);
 
@@ -70,6 +80,7 @@ public class activity_gamescreen extends AppCompatActivity implements View.OnCli
         if (bogstav.length() != 1) {
             forkerte.setText("Indtast kun et bogstav!!!");
         } else {
+            forsøg ++;
             logic.gætBogstav(bogstav);
         }
     }
@@ -111,12 +122,17 @@ public class activity_gamescreen extends AppCompatActivity implements View.OnCli
     public void gameDecided() {
         recieveI = new Bundle();
 
+
         /* LAV TIL OBSERVET OG IKKE TJEK HVER GANG*/
         if (logic.isVundet()) {
             i = new Intent(this, activity_won.class);
             recieveI.putString("gamemode", gamemode);
             recieveI.putString("rigtigtord",logic.getGuessword());
+            recieveI.putInt("forsøg",forsøg);
             i.putExtras(recieveI);
+
+            saveData();
+
             startActivity(i);
         } else if (logic.isTabt()){
             i = new Intent(this, activity_lost.class);
@@ -125,6 +141,15 @@ public class activity_gamescreen extends AppCompatActivity implements View.OnCli
             i.putExtras(recieveI);
             startActivity(i);
         }
+    }
+
+    public void saveData() {
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        editor.putString(USERNAME, userName);
+        editor.putInt(GUESSES, forsøg);
+        editor.apply();
     }
 
     @Override

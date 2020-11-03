@@ -14,7 +14,7 @@
         android:id="@+id/b_normal"
         android:layout_width="135dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="232dp"
+        android:layout_marginTop="400dp"
         android:text="Normal"
         android:textSize="25sp"
         app:layout_constraintBottom_toTopOf="@+id/b_timegated"
@@ -58,4 +58,21 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/gm_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:layout_marginBottom="50dp"
+        android:ems="10"
+        android:gravity="start"
+        android:hint="(Optional) Your name"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/b_normal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gamemode_title"
+        app:layout_constraintVertical_bias="0.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>

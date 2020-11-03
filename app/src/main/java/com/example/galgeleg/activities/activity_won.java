@@ -24,23 +24,27 @@ public class activity_won extends AppCompatActivity implements View.OnClickListe
         hovedmenu.setOnClickListener(this);
 
         TextView ord = findViewById(R.id.won_rigtigtord);
+        TextView Desc = findViewById(R.id.won_text);
+
         Bundle ordFraGame = getIntent().getExtras();
-        if (ordFraGame != null)
+        if (ordFraGame != null) {
             ord.append(ordFraGame.getString("rigtigtord"));
+            Desc.setText("Du gættede det rigtige ord på\n" + ordFraGame.getInt("forsøg") + " forsøg");
+        }
     }
 
     @Override
     public void onClick(View v) {
-        String S = intentBundle.getString("gamemode");
+
         switch (v.getId()) {
             case R.id.won_spiligen:
+                String S = intentBundle.getString("gamemode");
                 i = new Intent(this, activity_gamescreen.class);
                 i.putExtra("gamemode", S);
                 startActivity(i);
                 break;
             case R.id.won_hovedmenu:
                 i = new Intent(this, activity_Main.class);
-                i.putExtra("gamemode", S);
                 startActivity(i);
                 break;
         }
