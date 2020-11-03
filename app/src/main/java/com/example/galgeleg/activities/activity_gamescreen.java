@@ -19,7 +19,6 @@ import java.util.Observable;
 import java.util.Observer;
 
 public class activity_gamescreen extends AppCompatActivity implements View.OnClickListener, Observer {
-    private static boolean FIRST_RUN = true;
     EditText inBogstav;
     TextView forkerte;
     TextView synligtOrd;
@@ -59,7 +58,7 @@ public class activity_gamescreen extends AppCompatActivity implements View.OnCli
             userName = recieveI.getString("userName");
         }
         /* Bruger GameFactory til initialisering af nyt object af typen bestemt af forrige tryk */
-        logic = (GameTemplate) new GameFactory().factory(gamemode);
+        logic = new GameFactory().factory(gamemode);
 
         /* Tilføjer klassen til at blive observet*/
         logic.addObserver(this);

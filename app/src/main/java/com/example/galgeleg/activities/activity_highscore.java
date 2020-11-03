@@ -12,9 +12,7 @@ import java.util.ArrayList;
 public class activity_highscore extends AppCompatActivity {
     RecyclerView HighscoreRecyclerView;
     SharedPreferences sharedPreferences;
-
     HighscoreAdapter HA = HighscoreAdapter.getInstance();
-    ArrayList<Highscore> hsItems = HA.highscores;
     String userName;
     int userGuesses;
 
@@ -25,15 +23,16 @@ public class activity_highscore extends AppCompatActivity {
         setContentView(R.layout.activity_highscore);
         loadData();
         HighscoreRecyclerView = findViewById(R.id.hs_recyclerView);
-            HighscoreRecyclerView.setAdapter(HA);
+        HighscoreRecyclerView.setAdapter(HA);
     }
 
 
     public void loadData() {
-            sharedPreferences = getSharedPreferences(activity_gamescreen.SHARED_PREFS, MODE_PRIVATE);
-            userName = sharedPreferences.getString(activity_gamescreen.USERNAME,"");
-            userGuesses = sharedPreferences.getInt(activity_gamescreen.GUESSES, 0);
-            if(userGuesses != 0)
-                hsItems.add(new Highscore(userName,userGuesses));
+        sharedPreferences = getSharedPreferences(activity_gamescreen.SHARED_PREFS, MODE_PRIVATE);
+        userName = sharedPreferences.getString(activity_gamescreen.USERNAME, "");
+        userGuesses = sharedPreferences.getInt(activity_gamescreen.GUESSES, 0);
+        if (userGuesses != 0) {
+            HA.setHighscore(userName,userGuesses);
+        }
     }
 }

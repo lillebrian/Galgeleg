@@ -16,10 +16,10 @@ public class activity_lost extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lost);
 
-        Button spiligen = findViewById(R.id.lost_spiligen);
+//        Button spiligen = findViewById(R.id.lost_spiligen);
         Button hovedmenu = findViewById(R.id.lost_hovedmenu);
 
-        spiligen.setOnClickListener(this);
+//        spiligen.setOnClickListener(this);
         hovedmenu.setOnClickListener(this);
 
         TextView ord = findViewById(R.id.lost_rigtigtord);
@@ -32,11 +32,11 @@ public class activity_lost extends AppCompatActivity implements View.OnClickList
     public void onClick(View v) {
         String S = intentBundle.getString("gamemode");
         switch (v.getId()) {
-            case R.id.lost_spiligen:
-                i = new Intent(this, activity_gamescreen.class);
-                i.putExtra("gamemode", S);
-                startActivity(i);
-                break;
+//            case R.id.lost_spiligen:
+//                i = new Intent(this, activity_gamescreen.class);
+//                i.putExtra("gamemode", S);
+//                startActivity(i);
+//                break;
             case R.id.lost_hovedmenu:
                 i = new Intent(this, activity_Main.class);
                 i.putExtra("gamemode", S);

@@ -2,10 +2,10 @@ package com.example.galgeleg;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-public class Highscore {
+public class Highscore implements Comparable<Highscore> {
 
-    private String name;
-    private int guesses;
+    private final String name;
+    private final int guesses;
 
     public Highscore (String name, int guesses) {
         this.name = name;
@@ -18,5 +18,10 @@ public class Highscore {
 
     public int getGuesses() {
         return guesses;
+    }
+
+    @Override
+    public int compareTo(Highscore o) {
+        return this.guesses- o.guesses;
     }
 }

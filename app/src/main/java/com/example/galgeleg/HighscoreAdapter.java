@@ -4,15 +4,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import java.util.ArrayList;
-
+import java.util.Collections;
+import java.util.List;
 
 public class HighscoreAdapter extends RecyclerView.Adapter<HighscoreAdapter.HighscoreViewHolder> {
     public ArrayList<Highscore> highscores = new ArrayList<>();
+
     /* Singleton decleration */
     private static HighscoreAdapter INSTANCE = null;
     private HighscoreAdapter () {
@@ -24,14 +24,12 @@ public class HighscoreAdapter extends RecyclerView.Adapter<HighscoreAdapter.High
         return INSTANCE;
     }
 
-
-//    public HighscoreAdapter(ArrayList<Highscore> highscores) {
-//        this.highscores = highscores;
-//    }
-
     public void setHighscore(String s, int i) {
         highscores.add(new Highscore(s,i));
+        /* Sorting descending order */
+        Collections.sort(highscores);
     }
+
 
     @NonNull
     @Override

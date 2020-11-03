@@ -20,7 +20,7 @@ public class GameFactory extends AppCompatActivity {
         return null;
     }
 
-    public BasicGame factory(String s) {
+    public GameTemplate factory(String s) {
         switch (s) {
             case "normal":
                 return new gm_Normal();
