@@ -12,7 +12,6 @@ import java.util.List;
 
 public class HighscoreAdapter extends RecyclerView.Adapter<HighscoreAdapter.HighscoreViewHolder> {
     public ArrayList<Highscore> highscores = new ArrayList<>();
-
     /* Singleton decleration */
     private static HighscoreAdapter INSTANCE = null;
     private HighscoreAdapter () {
