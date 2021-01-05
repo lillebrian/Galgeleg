@@ -8,6 +8,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.galgeleg.FreshWordlist;
+import com.example.galgeleg.GameFactory;
+import com.example.galgeleg.GameTemplate;
 import com.example.galgeleg.HighscoreAdapter;
 import com.example.galgeleg.R;
 
@@ -18,12 +21,21 @@ public class  activity_Main extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        if(FIRST_RUN){
+        if(FIRST_RUN) {
             FIRST_RUN = false;
             SharedPreferences sharedPreferences = getSharedPreferences(activity_gamescreen.SHARED_PREFS, MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.clear();
             editor.apply();
+
+            // Hent ord fra dr fra start
+            Thread t1 = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                        FreshWordlist fwl = new FreshWordlist();
+                }
+            });
+            t1.start();
         }
 
         Button startSpil = findViewById(R.id.b_StartSpil);

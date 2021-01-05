@@ -2,6 +2,7 @@ package com.example.galgeleg.activities;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,7 +51,7 @@ public class activity_won extends AppCompatActivity implements View.OnClickListe
 
 
 //        ViewTreeObserver viewTreeObserver = new ViewTreeObserver().addOnDrawListener(R.layout.activity_won);
-        // https://github.com/DanielMartinus/Konfetti 
+        // https://github.com/DanielMartinus/Konfetti
         final KonfettiView konfettiView = findViewById(R.id.viewKonfetti);
         konfettiView.build()
                 .addColors(Color.YELLOW, Color.GREEN, Color.MAGENTA)
@@ -60,13 +61,18 @@ public class activity_won extends AppCompatActivity implements View.OnClickListe
                 .setTimeToLive(2000L)
                 .addShapes(Shape.Square.INSTANCE, Shape.Circle.INSTANCE)
                 .addSizes(new Size(12, 5f))
-                .setPosition(-50f,  50f, -50f, -50f)
-                .streamFor(222, 5000L);
+                .setPosition(0f,  1400f, -50f, -50f)
+                .streamFor(400, 3000L);
+
+        //Lydafspilning
+        final MediaPlayer mp = MediaPlayer.create(this, R.raw.bonk);
+        mp.start();
+
+
     }
 
     @Override
     public void onClick(View v) {
-
         switch (v.getId()) {
 //            case R.id.won_spiligen:
 //                String S = intentBundle.getString("gamemode");

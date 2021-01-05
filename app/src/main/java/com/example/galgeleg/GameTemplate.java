@@ -27,14 +27,12 @@ public abstract class GameTemplate extends Observable implements BasicGame{
     public boolean timesUp = false;
 
     public ArrayList<String> brugteBogstaver = new ArrayList<>();
+    public ArrayList<String> muligeOrdFraDr = new ArrayList<>();
     public ArrayList<String> muligeOrd = new ArrayList<>();
 
 
     public GameTemplate() {
-
     }
-
-
 
     @Override
     public void readyNextGame() {
@@ -44,8 +42,14 @@ public abstract class GameTemplate extends Observable implements BasicGame{
         vundet = false;
         tabt = false;
 
-        initializeWords(muligeOrd);
-        if (muligeOrd.isEmpty()) throw new IllegalStateException("Listen over mulige ord er tom!");
+        if (muligeOrd.isEmpty()) {
+            if (muligeOrdFraDr.isEmpty()) {
+                throw new IllegalStateException("Listen over mulige ord fra DR er tom!");
+            } else {
+                throw new IllegalStateException("Listen over spilord er tom! (Check GAMETEMPLATE)");
+            }
+        }
+
         /* CHOOSING THE WORD TO BE GUESSED */
         guessword = muligeOrd.get(new Random().nextInt(muligeOrd.size()));
     }
@@ -57,13 +61,22 @@ public abstract class GameTemplate extends Observable implements BasicGame{
         opdaterSynligtOrd(guessword);
     }
 
-    public void initializeWords(ArrayList<String> muligeOrd) {
+    //@TODO gem ordene med noget preferencemananger, ellers bliver de ikke gemt.
+    public void initializeWords() {
+        Random random = new Random();
+        int upperBound = muligeOrdFraDr.size();
+        int pos;
         try {
-//            hentOrdFraDr();
-            muligeOrd.add("hej");
+            for (int i = 0; i < 12; i++) {
+                pos = random.nextInt(upperBound);
+                if (muligeOrdFraDr.get(pos).length() >= 3)
+                    muligeOrd.add(muligeOrdFraDr.get(pos));
+            }
+            System.out.println(muligeOrd);
         } catch (Exception e) {
-            System.out.println("Exception");
+            System.out.println("Exception with initializing words.");
         }
+
     }
 
     @Override
@@ -143,6 +156,7 @@ public abstract class GameTemplate extends Observable implements BasicGame{
             sb.append(linje).append("\n");
             linje = br.readLine();
         }
+        br.close();
         return sb.toString();
     }
 
@@ -164,11 +178,11 @@ public abstract class GameTemplate extends Observable implements BasicGame{
 
         System.out.println("data = " + data);
         System.out.println("data = " + Arrays.asList(data.split("\\s+")));
-        muligeOrd.clear();
-        muligeOrd.addAll(new HashSet<String>(Arrays.asList(data.split(" "))));
+        muligeOrdFraDr.clear();
+        muligeOrdFraDr.addAll(new HashSet<String>(Arrays.asList(data.split(" "))));
 
-        System.out.println("muligeOrd = " + muligeOrd);
-//        startNytSpil();
+        System.out.println("muligeOrd = " + muligeOrdFraDr);
+
     }
 
 
