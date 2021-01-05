@@ -14,8 +14,15 @@ import com.example.galgeleg.GameTemplate;
 import com.example.galgeleg.HighscoreAdapter;
 import com.example.galgeleg.R;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class  activity_Main extends AppCompatActivity implements View.OnClickListener {
     private static boolean FIRST_RUN = true;
+
+    Set<String> muligeOrdFraDrSet;
+    SharedPreferences sharedPrefs;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,8 +30,8 @@ public class  activity_Main extends AppCompatActivity implements View.OnClickLis
 
         if(FIRST_RUN) {
             FIRST_RUN = false;
-            SharedPreferences sharedPreferences = getSharedPreferences(activity_gamescreen.SHARED_PREFS, MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPreferences.edit();
+            final SharedPreferences sharedPreferences = getSharedPreferences(activity_gamescreen.SHARED_PREFS, MODE_PRIVATE);
+            final SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.clear();
             editor.apply();
 
@@ -32,11 +39,23 @@ public class  activity_Main extends AppCompatActivity implements View.OnClickLis
             Thread t1 = new Thread(new Runnable() {
                 @Override
                 public void run() {
+                    try {
                         FreshWordlist fwl = new FreshWordlist();
+                        Set<String> muligeOrdFraDrSet = new HashSet<>(fwl.hentOrdFraDr());
+//                        muligeOrdFraDrSet.addAll(fwl.hentOrdFraDr());
+                        editor.putStringSet(activity_gamescreen.ORDFRADR, muligeOrdFraDrSet);
+                        editor.apply();
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
                 }
             });
             t1.start();
+
         }
+
 
         Button startSpil = findViewById(R.id.b_StartSpil);
         startSpil.setOnClickListener(this);

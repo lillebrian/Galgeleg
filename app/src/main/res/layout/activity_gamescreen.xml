@@ -13,11 +13,11 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="65dp"
         android:ems="10"
-        android:hint="Indtast et bogstav"
-        android:textColorHint="#000"
-        android:inputType="textPersonName"
-        android:textStyle="italic"
         android:gravity="center"
+        android:hint="Indtast et bogstav"
+        android:inputType="textPersonName"
+        android:textColorHint="#000"
+        android:textStyle="italic"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -43,6 +43,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="50dp"
+        android:gravity="center"
         android:text="Forkerte gæt\n"
         app:layout_constraintBottom_toTopOf="@+id/gamescreen_gæt"
         app:layout_constraintEnd_toEndOf="@+id/gamescreen_ordtilgæt"
@@ -84,4 +85,14 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:gravity="center"
+        android:hint="Bogstavet q vinder spillet"
+        app:layout_constraintStart_toStartOf="@+id/gamescreen_gæt"
+        app:layout_constraintTop_toBottomOf="@+id/gamescreen_gæt" />
 </androidx.constraintlayout.widget.ConstraintLayout>

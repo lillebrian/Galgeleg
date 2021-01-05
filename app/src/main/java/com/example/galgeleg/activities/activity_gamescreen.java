@@ -1,5 +1,4 @@
 package com.example.galgeleg.activities;
-import com.example.galgeleg.BasicGame;
 import com.example.galgeleg.GameFactory;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,8 +14,11 @@ import android.widget.TextView;
 import com.example.galgeleg.GameTemplate;
 import com.example.galgeleg.R;
 
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Set;
 
 public class activity_gamescreen extends AppCompatActivity implements View.OnClickListener, Observer {
     EditText inBogstav;
@@ -34,6 +36,7 @@ public class activity_gamescreen extends AppCompatActivity implements View.OnCli
     public static final String SHARED_PREFS = "sharedPrefs";
     public static final String USERNAME = "userName";
     public static final String GUESSES = "forsøg";
+    public static final String ORDFRADR = "ordFraDr";
     String userName;
     int forsøg;
 
@@ -59,6 +62,10 @@ public class activity_gamescreen extends AppCompatActivity implements View.OnCli
         }
         /* Bruger GameFactory til initialisering af nyt object af typen bestemt af forrige tryk */
         logic = new GameFactory().factory(gamemode);
+
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        Set<String> muligeOrdFraDrSet = new HashSet<>(sharedPreferences.getStringSet(ORDFRADR, Collections.singleton("null")));
+        logic.muligeOrdFraDr.addAll(muligeOrdFraDrSet);
 
         /* Tilføjer klassen til at blive observet*/
         logic.addObserver(this);
@@ -149,6 +156,11 @@ public class activity_gamescreen extends AppCompatActivity implements View.OnCli
         editor.putString(USERNAME, userName);
         editor.putInt(GUESSES, forsøg);
         editor.apply();
+    }
+
+    public void loadData() {
+
+
     }
 
     @Override

@@ -2,13 +2,7 @@ package com.example.galgeleg;
 
 import android.os.CountDownTimer;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.Observable;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
@@ -27,9 +21,10 @@ public abstract class GameTemplate extends Observable implements BasicGame{
     public boolean timesUp = false;
 
     public ArrayList<String> brugteBogstaver = new ArrayList<>();
-    public ArrayList<String> muligeOrdFraDr = new ArrayList<>();
-    public ArrayList<String> muligeOrd = new ArrayList<>();
 
+    public ArrayList<String> muligeOrdFraDr = new ArrayList<>();
+//    public Set<String> muligeOrdFraDrSet = new HashSet<>(); // Til preference manager
+    public ArrayList<String> muligeOrdValgte = new ArrayList<>();
 
     public GameTemplate() {
     }
@@ -41,8 +36,8 @@ public abstract class GameTemplate extends Observable implements BasicGame{
         antalForkerte = 0;
         vundet = false;
         tabt = false;
-
-        if (muligeOrd.isEmpty()) {
+        initializeWords();
+        if (muligeOrdValgte.isEmpty()) {
             if (muligeOrdFraDr.isEmpty()) {
                 throw new IllegalStateException("Listen over mulige ord fra DR er tom!");
             } else {
@@ -50,8 +45,9 @@ public abstract class GameTemplate extends Observable implements BasicGame{
             }
         }
 
+
         /* CHOOSING THE WORD TO BE GUESSED */
-        guessword = muligeOrd.get(new Random().nextInt(muligeOrd.size()));
+        guessword = muligeOrdValgte.get(new Random().nextInt(muligeOrdValgte.size()));
     }
 
     @Override
@@ -61,7 +57,7 @@ public abstract class GameTemplate extends Observable implements BasicGame{
         opdaterSynligtOrd(guessword);
     }
 
-    //@TODO gem ordene med noget preferencemananger, ellers bliver de ikke gemt.
+
     public void initializeWords() {
         Random random = new Random();
         int upperBound = muligeOrdFraDr.size();
@@ -70,13 +66,12 @@ public abstract class GameTemplate extends Observable implements BasicGame{
             for (int i = 0; i < 12; i++) {
                 pos = random.nextInt(upperBound);
                 if (muligeOrdFraDr.get(pos).length() >= 3)
-                    muligeOrd.add(muligeOrdFraDr.get(pos));
+                    muligeOrdValgte.add(muligeOrdFraDr.get(pos));
             }
-            System.out.println(muligeOrd);
+            System.out.println(muligeOrdValgte);
         } catch (Exception e) {
             System.out.println("Exception with initializing words.");
         }
-
     }
 
     @Override
@@ -147,43 +142,9 @@ public abstract class GameTemplate extends Observable implements BasicGame{
     }
 
 
-    public static String hentUrl(String url) throws IOException {
-        System.out.println("Henter data fra " + url);
-        BufferedReader br = new BufferedReader(new InputStreamReader(new URL(url).openStream()));
-        StringBuilder sb = new StringBuilder();
-        String linje = br.readLine();
-        while (linje != null) {
-            sb.append(linje).append("\n");
-            linje = br.readLine();
-        }
-        br.close();
-        return sb.toString();
-    }
 
-    public void hentOrdFraDr() throws Exception {
-        String data = hentUrl("https://dr.dk");
-        //System.out.println("data = " + data);
 
-        data = data.substring(data.indexOf("<body")). // fjern headere
-                replaceAll("<.+?>", " ").toLowerCase(). // fjern tags
-                replaceAll("&#198;", "æ"). // erstat HTML-tegn
-                replaceAll("&#230;", "æ"). // erstat HTML-tegn
-                replaceAll("&#216;", "ø"). // erstat HTML-tegn
-                replaceAll("&#248;", "ø"). // erstat HTML-tegn
-                replaceAll("&oslash;", "ø"). // erstat HTML-tegn
-                replaceAll("&#229;", "å"). // erstat HTML-tegn
-                replaceAll("[^a-zæøå]", " "). // fjern tegn der ikke er bogstaver
-                replaceAll(" [a-zæøå] ", " "). // fjern 1-bogstavsord
-                replaceAll(" [a-zæøå][a-zæøå] ", " "); // fjern 2-bogstavsord
 
-        System.out.println("data = " + data);
-        System.out.println("data = " + Arrays.asList(data.split("\\s+")));
-        muligeOrdFraDr.clear();
-        muligeOrdFraDr.addAll(new HashSet<String>(Arrays.asList(data.split(" "))));
-
-        System.out.println("muligeOrd = " + muligeOrdFraDr);
-
-    }
 
 
 
